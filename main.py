@@ -1,10 +1,15 @@
-from graphical_interface.graphical import *
-from gamesettings import *
+from graphical_interface.graphical import TicTacToeWindow
+from gamesettings.game import TicTacToe
+from flet import Page, app
 
-def main(page: ft.Page):
+
+def main(page: Page):
     page.title = "Tic Tac Toe"
-    page.update()
-    ttt = TicTacToe()
-    page.add(ttt)
+    # create application instance
+    tctcte = TicTacToeWindow()
+    # add application's root control to the page
+    page.add(tctcte)
 
-ft.app(target=main)
+
+if __name__ == "__main__":
+    app(target=main)

@@ -13,6 +13,9 @@ class TicTacToe:
     def set_winner(self, value: str):
         self.winner = value
 
+    def get_board(self):
+        return self._board
+
     def change_turn(self):
         """
         Change the actual Turn. There are two turns. Turn 0 -> Player 1 and Turn 1 -> Player 2
@@ -29,6 +32,11 @@ class TicTacToe:
         :return: True if all spaces are complete, False otherwise.
         """
         return any("_" in row for row in self._board)
+
+    def rungame(self, data):
+        self.moviment(data)
+        self.change_turn()
+        return self.mark
 
     def check_line(self, line):
         """
@@ -71,31 +79,20 @@ class TicTacToe:
         :param position: List with two values, row and column, respectively.
         :return:
         """
-        mark = "X" if self.turn == 0 else "O"
+        self.mark = "X" if self.turn == 0 else "O"
         if self._board[position[0]][position[1]] != "_":
             return "Position already occupied! You have lost your turn."
         else:
-            self._board[position[0]][position[1]] = mark
+            self._board[position[0]][position[1]] = self.mark
 
     def run_game(self):
         """
         Run the game
         :return:
         """
-        while self.running:
-            if self.check_win()[0]:
-                self.running = False
-                self.set_winner(self.check_win()[1])
-                break
-            if self.is_board_full():
-                self.running = False
-                self.set_winner("Draw")
-                break
-            if self.turn == 0:
-                self.moviment(list())  # preciso tirar daqui e passar como parametro um valor que vou pegar do flet
-                self.change_turn()
-            elif self.turn == 1:
-                self.moviment(list())
-                self.change_turn()
-
-
+        if self.check_win()[0]:
+            self.running = False
+            self.set_winner(self.check_win()[1])
+        if self.is_board_full():
+            self.running = False
+            self.set_winner("Draw")
